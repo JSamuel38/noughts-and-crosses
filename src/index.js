@@ -16,17 +16,27 @@ const gameboard = (() => {
   };
 })();
 
-const playerFactory = (name, team) => {
+const PlayerFactory = (name, team) => {
   return {
     name,
     team
   };
 };
 
+const BotFactory = (name, team) => {
+  const prototype = PlayerFactory(name, team);
+  const botSelect = () => {
+    let selection = Math.floor(Math.random() * 9);
+    return selection;
+  };
+  return Object.assign({}, prototype, {botSelect}) ;
+};
+
 const gameBoard = document.querySelector('.gameboard');
 const cellsList = gameBoard.querySelectorAll('.cell');
 const playerForm = document.querySelector('form');
 
+let bot;
 let player;
 playerForm.addEventListener(
   'submit',
@@ -34,7 +44,10 @@ playerForm.addEventListener(
     const data = new FormData(playerForm);
     const playerName = data.get('player-name');
     const playerTeam = data.get('team');
-    player = playerFactory(playerName, playerTeam);
+    let aiTeam;
+    (playerTeam === 'x') ? aiTeam = 'o' : aiTeam = 'x';
+    player = PlayerFactory(playerName, playerTeam);
+    bot = BotFactory('Computer', aiTeam);
     e.preventDefault();
   },
   false
@@ -48,6 +61,9 @@ cellsList.forEach((cell) => {
       if (player && !gameboard.size[index]) {
         gameboard.size[index] = player.team;
         gameboard.display(cell, index);
+        let botChoice = bot.botSelect();
+        gameboard.size[botChoice] = bot.team;
+        gameboard.display(cellsList[botChoice], botChoice);
       } else if (!player){
         alert('Please select a player');
       }
