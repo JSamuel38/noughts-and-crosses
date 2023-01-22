@@ -9,5 +9,10 @@
 }
 
 .cell {
+  align-items: center;
   border: black 2px solid;
+  display: flex;
+  font-size: 8rem;
+  justify-content: center;
+  padding-bottom: 10%;
 }
