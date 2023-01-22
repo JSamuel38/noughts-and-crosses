@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+  background-color: #000;
+  font-family: 'Roboto', sans-serif;
+}
+
 .gameboard-container {
   display: flex;
   justify-content: center;
@@ -5,11 +12,15 @@
 
 .gameboard {
   display: inline-grid;
-  grid-template: repeat(3, minmax(100px, 9.5vw)) / repeat(3, minmax(100px, 9.5vw));
+  grid-template: repeat(3, minmax(100px, 9.5vw)) / repeat(
+      3,
+      minmax(100px, 9.5vw)
+    );
 }
 
 .cell {
   align-items: center;
+  background-color: #fff;
   border: black 2px solid;
   display: flex;
   font-size: 8rem;
@@ -18,7 +29,9 @@
 }
 
 .score-container {
-  border: black 2px solid;
+  border: #fff 2px solid;
+  border-radius: 5px;
+  color: #fff;
   display: flex;
   height: 100px;
   margin: auto;
@@ -27,7 +40,6 @@
 }
 
 .score-container > div {
-  border: black 1px solid;
   flex: 1;
   margin: 5px;
   text-align: center;
@@ -40,7 +52,7 @@
 form {
   margin: auto;
   margin-bottom: 20px;
-  margin-top: 20px;
+  margin-top: -12px;
   width: 296px;
 }
 
@@ -49,19 +61,31 @@ form > fieldset > div {
 }
 
 form > fieldset {
+  border: #fff 4px solid;
+  border-radius: 5px;
+  color: #fff;
   display: flex;
+  font-size: 1.5rem;
   justify-content: space-around;
   padding: 20px;
   padding-bottom: 25px;
 }
 
 .button-container > button {
-  background-color: #243763;
-  border: none;
+  background-color: #000;
+  border: #fff 3px solid;
   border-radius: 5px;
   color: #fff;
   padding: 10px;
   width: 80px;
+}
+
+.button-container > button:hover {
+  background-color: #222;
+}
+
+.button-container > button:active {
+  background-color: #444;
 }
 
 .button-container {
