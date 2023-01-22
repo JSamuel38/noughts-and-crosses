@@ -4,11 +4,15 @@ const gameboard = (() => {
   const getScore = score;
   const addPlayer1Score = score[0];
   const addPlayer2Score = score[1];
+  const display = (cell, index) => {
+    cell.innerText = size[index];
+  };
   return {
     getScore,
     size,
     addPlayer1Score,
-    addPlayer2Score
+    addPlayer2Score,
+    display
   };
 })();
 
@@ -43,6 +47,7 @@ cellsList.forEach((cell) => {
     () => {
       if (player && !gameboard.size[index]) {
         gameboard.size[index] = player.team;
+        gameboard.display(cell, index);
       } else if (!player){
         alert('Please select a player');
       }
