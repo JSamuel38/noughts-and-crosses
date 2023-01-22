@@ -12,3 +12,10 @@ const gameboard = (() => {
     addPlayer2Score
   };
 })();
+
+const playerFactory = (name, team) => {
+  return {
+    name,
+    team
+  };
+};
