@@ -9,6 +9,28 @@
     <title>Noughts And Crosses</title>
   </head>
   <body>
+    <fieldset>
+      <legend>Enter your name:</legend>
+
+      <div>
+        <input name="player-name" type="text" id="player-name" />
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Select a team:</legend>
+
+      <div>
+        <input type="radio" id="x" name="team" value="x" />
+        <label for="x">X</label>
+      </div>
+
+      <div>
+        <input type="radio" id="o" name="team" value="o" />
+        <label for="0">O</label>
+      </div>
+    </fieldset>
+
     <div class="gameboard">
       <div class="cell"></div>
       <div class="cell"></div>
