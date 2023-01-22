@@ -3,7 +3,7 @@ const gameboard = (() => {
   const score = [0, 0];
   const getScore = score;
   const addPlayer1Score = () => score[0]++;
-  const addPlayer2Score = () => score[1]++;
+  const addPlayer2Score = () => score[1]++; 
   const display = (cell, index) => {
     cell.innerText = size[index];
   };
@@ -27,6 +27,9 @@ const gameboard = (() => {
     }
   };
   const reset = async () => {
+    for (let i = 0; i < 9; i++) {
+      size[i] = undefined;
+    }
     await new Promise(r => setTimeout(r, 500));
     cellsList.forEach((cell) => cell.innerText = '');
     for (let i = 0; i < 9; i++) {
@@ -71,6 +74,9 @@ const BotFactory = (team) => {
 const gameBoard = document.querySelector('.gameboard');
 const cellsList = gameBoard.querySelectorAll('.cell');
 const playerForm = document.querySelector('form');
+const playerScoreCounter = document.querySelector('.player-score');
+const botScoreCounter = document.querySelector('.bot-score');
+const resetButton = document.getElementById('reset');
 
 let bot;
 let player;
@@ -88,6 +94,13 @@ playerForm.addEventListener(
   false
 );
 
+resetButton.addEventListener(
+  'click',
+  () => {
+    window.location.reload();
+  }
+);
+
 cellsList.forEach((cell) => {
   let playerWon = false;
   let draw = false;
@@ -103,6 +116,7 @@ cellsList.forEach((cell) => {
           gameboard.addPlayer1Score();
           alert('Player has won!');
           gameboard.reset();
+          playerScoreCounter.innerText = gameboard.getScore[0];
           playerWon = true;
         }
         //In case of draw
@@ -120,6 +134,7 @@ cellsList.forEach((cell) => {
             gameboard.addPlayer2Score();
             alert('Computer has won!');
             gameboard.reset();
+            botScoreCounter.innerText = gameboard.getScore[1];
           }
         } 
         playerWon = false;
