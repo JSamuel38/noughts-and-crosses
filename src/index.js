@@ -23,12 +23,10 @@ const gameboard = (() => {
     if (size[2] && size[2] === size[4] && size[4] === size[6]) return true;
     //Check for draw
     if (size.filter((el) => el !== undefined).length === 9) {
-      console.log('Draw');
       return false;
     }
   };
-  const reset = async (name) => {
-    alert(`${name} has won!`);
+  const reset = async () => {
     await new Promise(r => setTimeout(r, 500));
     cellsList.forEach((cell) => cell.innerText = '');
     for (let i = 0; i < 9; i++) {
@@ -92,6 +90,7 @@ playerForm.addEventListener(
 
 cellsList.forEach((cell) => {
   let playerWon = false;
+  let draw = false;
   let index = Array.prototype.indexOf.call(cellsList, cell);
   cell.addEventListener(
     'click',
@@ -102,19 +101,28 @@ cellsList.forEach((cell) => {
         gameboard.display(cell, index);
         if (gameboard.checkForWin()) {
           gameboard.addPlayer1Score();
-          gameboard.reset('Player');
+          alert('Player has won!');
+          gameboard.reset();
           playerWon = true;
         }
+        //In case of draw
+        if (gameboard.checkForWin() === false) {
+          draw = true;
+          alert('Draw');
+          gameboard.reset();
+        }
         //Bot
-        if (!playerWon) {
+        if (!playerWon && !draw) {
           let botChoice = bot.botSelect('easy');
           gameboard.size[botChoice] = bot.team;
           gameboard.display(cellsList[botChoice], botChoice);
           if (gameboard.checkForWin()) {
             gameboard.addPlayer2Score();
-            gameboard.reset('Computer');
+            alert('Computer has won!');
+            gameboard.reset();
           }
         } 
+        playerWon = false;
       } else if (!player) {
         alert('Please select a team');
       }
