@@ -9,7 +9,7 @@ const gameboard = (() => {
   };
   const checkForWin = () => {
     //Check rows
-    for (let i = 0; i < 9; i+=3) {
+    for (let i = 0; i < 9; i += 3) {
       if (!size[i]) continue;
       if (size[i] === size[i + 1] && size[i + 1] === size[i + 2]) return true;
     }
@@ -21,6 +21,19 @@ const gameboard = (() => {
     //Check diagonals
     if (size[0] && size[0] === size[4] && size[4] === size[8]) return true;
     if (size[2] && size[2] === size[4] && size[4] === size[6]) return true;
+    //Check for draw
+    if (size.filter((el) => el !== undefined).length === 9) {
+      console.log('Draw');
+      return false;
+    }
+  };
+  const reset = async (name) => {
+    alert(`${name} has won!`);
+    await new Promise(r => setTimeout(r, 500));
+    cellsList.forEach((cell) => cell.innerText = '');
+    for (let i = 0; i < 9; i++) {
+      size[i] = undefined;
+    }
   };
   return {
     getScore,
@@ -28,7 +41,8 @@ const gameboard = (() => {
     addPlayer1Score,
     addPlayer2Score,
     display,
-    checkForWin
+    checkForWin,
+    reset
   };
 })();
 
@@ -53,7 +67,7 @@ const BotFactory = (team) => {
     return selection;
   };
 
-  return Object.assign({}, prototype, {botSelect}) ;
+  return Object.assign({}, prototype, { botSelect });
 };
 
 const gameBoard = document.querySelector('.gameboard');
@@ -77,6 +91,7 @@ playerForm.addEventListener(
 );
 
 cellsList.forEach((cell) => {
+  let playerWon = false;
   let index = Array.prototype.indexOf.call(cellsList, cell);
   cell.addEventListener(
     'click',
@@ -87,17 +102,20 @@ cellsList.forEach((cell) => {
         gameboard.display(cell, index);
         if (gameboard.checkForWin()) {
           gameboard.addPlayer1Score();
-          gameboard.reset();
+          gameboard.reset('Player');
+          playerWon = true;
         }
         //Bot
-        let botChoice = bot.botSelect('easy');
-        gameboard.size[botChoice] = bot.team;
-        gameboard.display(cellsList[botChoice], botChoice);
-        if(gameboard.checkForWin()) {
-          gameboard.addPlayer2Score();
-          gameboard.reset();
-        }
-      } else if (!player){
+        if (!playerWon) {
+          let botChoice = bot.botSelect('easy');
+          gameboard.size[botChoice] = bot.team;
+          gameboard.display(cellsList[botChoice], botChoice);
+          if (gameboard.checkForWin()) {
+            gameboard.addPlayer2Score();
+            gameboard.reset('Computer');
+          }
+        } 
+      } else if (!player) {
         alert('Please select a team');
       }
     }
