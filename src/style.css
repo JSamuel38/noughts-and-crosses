@@ -16,3 +16,23 @@
   justify-content: center;
   padding-bottom: 10%;
 }
+
+.score-container {
+  border: black 2px solid;
+  display: flex;
+  height: 100px;
+  margin: auto;
+  margin-bottom: 20px;
+  width: 296px;
+}
+
+.score-container > div {
+  border: black 1px solid;
+  flex: 1;
+  margin: 5px;
+  text-align: center;
+}
+
+.score-container > div > div {
+  font-size: 3.5rem;
+}
