@@ -5,7 +5,7 @@
 
 .gameboard {
   display: inline-grid;
-  grid-template: repeat(3, minmax(100px, 10vw)) / repeat(3, minmax(100px, 10vw));
+  grid-template: repeat(3, minmax(100px, 9.5vw)) / repeat(3, minmax(100px, 9.5vw));
 }
 
 .cell {
@@ -35,4 +35,20 @@
 
 .score-container > div > div {
   font-size: 3.5rem;
+}
+
+form {
+  margin: auto;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  width: 296px;
+}
+
+form > fieldset > div {
+  display: inline;
+}
+
+form > fieldset {
+  display: flex;
+  justify-content: space-around;
 }
