@@ -24,8 +24,14 @@ const PlayerFactory = (team) => {
 
 const BotFactory = (team) => {
   const prototype = PlayerFactory(team);
-  const botSelect = () => {
+  const easySelect = () => {
     let selection = Math.floor(Math.random() * 9);
+    if (gameboard.size[selection]) return easySelect();
+    return selection;
+  };
+  const botSelect = (level) => {
+    let selection;
+    if (level === 'easy') selection = easySelect();
     return selection;
   };
   return Object.assign({}, prototype, {botSelect}) ;
@@ -59,7 +65,7 @@ cellsList.forEach((cell) => {
       if (player && !gameboard.size[index]) {
         gameboard.size[index] = player.team;
         gameboard.display(cell, index);
-        let botChoice = bot.botSelect();
+        let botChoice = bot.botSelect('easy');
         gameboard.size[botChoice] = bot.team;
         gameboard.display(cellsList[botChoice], botChoice);
       } else if (!player){
