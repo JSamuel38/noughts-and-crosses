@@ -22,6 +22,7 @@
   align-items: center;
   background-color: #fff;
   border: black 2px solid;
+  color: #000;
   display: flex;
   font-size: 8rem;
   justify-content: center;
@@ -72,7 +73,7 @@ form > fieldset {
 }
 
 .button-container > button {
-  background-color: #000;
+  background-color: #000; 
   border: #fff 3px solid;
   border-radius: 5px;
   color: #fff;
