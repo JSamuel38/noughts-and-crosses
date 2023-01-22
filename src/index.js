@@ -24,13 +24,14 @@ const gameBoard = document.querySelector('.gameboard');
 const cell = gameBoard.querySelectorAll('.cell');
 const playerForm = document.querySelector('form');
 
+let player;
 playerForm.addEventListener(
   'submit',
   (e) => {
     const data = new FormData(playerForm);
     const playerName = data.get('player-name');
     const playerTeam = data.get('team');
-    const player = playerFactory(playerName, playerTeam);
+    player = playerFactory(playerName, playerTeam);
     e.preventDefault();
   },
   false
