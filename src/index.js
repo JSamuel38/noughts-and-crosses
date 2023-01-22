@@ -2,12 +2,11 @@ const gameboard = (() => {
   const size = new Array(9);
   const score = [0, 0];
   const getScore = score;
-  const getSize = size;
   const addPlayer1Score = score[0];
   const addPlayer2Score = score[1];
   return {
     getScore,
-    getSize,
+    size,
     addPlayer1Score,
     addPlayer2Score
   };
@@ -21,7 +20,7 @@ const playerFactory = (name, team) => {
 };
 
 const gameBoard = document.querySelector('.gameboard');
-const cell = gameBoard.querySelectorAll('.cell');
+const cellsList = gameBoard.querySelectorAll('.cell');
 const playerForm = document.querySelector('form');
 
 let player;
@@ -36,3 +35,17 @@ playerForm.addEventListener(
   },
   false
 );
+
+cellsList.forEach((cell) => {
+  let index = Array.prototype.indexOf.call(cellsList, cell);
+  cell.addEventListener(
+    'click',
+    () => {
+      if (player && !gameboard.size[index]) {
+        gameboard.size[index] = player.team;
+      } else if (!player){
+        alert('Please select a player');
+      }
+    }
+  );
+}); 
